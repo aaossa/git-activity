@@ -57,6 +57,25 @@ Fri █████████████████████████�
 
 ![image](https://user-images.githubusercontent.com/10425834/170083883-6145a11f-b6d8-490e-a751-45c2d6552698.png)
 
+### Run On Mac
+
+You should follow the below guide if you need to run this script on Mac.
+
+- Step 1: Install the `coreutils`. You can run the command `brew install coreutils` to install it if you have `brew`.
+- Step 2: Install the latest bash. Run `brew install bash` with `brew` to install the latest bash.
+- Step 3: Run `which -a bash` to get the path of the latest bash then replace the script file first line by it.
+```shell
+#!/bin/bash
+
+...
+```
+Modified
+```
+#!/path/to/the_latest_bash
+
+...
+```
+- Step 4: Replace `date` in the script file with `gdate`.
 
 ### License
 
