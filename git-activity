@@ -98,20 +98,20 @@ for day_n in $(seq 0 6); do
       value=$(( ${commits_per_day["${key}"]}00 / commits_max))
       if (( value <= 25 )); then
         # Low activity
-        printf "\x1b[38;2;14;100;41m%s%s" "$char_full" "$space"
+        printf "\x1b[38;5;22m%s%s" "$char_full" "$space"
       elif (( value <= 50 )); then
         # Mid-low activity
-        printf "\x1b[38;2;14;150;41m%s%s" "$char_full" "$space"
+        printf "\x1b[38;5;28m%s%s" "$char_full" "$space"
       elif (( value <= 75 )); then
         # Mid-high activity
-        printf "\x1b[38;2;14;200;41m%s%s" "$char_full" "$space"
+        printf "\x1b[38;5;34m%s%s" "$char_full" "$space"
       else
         # High activity
-        printf "\x1b[38;2;14;250;41m%s%s" "$char_full" "$space"
+        printf "\x1b[38;5;40m%s%s" "$char_full" "$space"
       fi
     elif [ $key -lt $last_day ]; then
       # No activity
-      printf "\u001b[38;5;250m%s%s" "$char_void" "$space"
+      printf "\x1b[38;5;250m%s%s" "$char_void" "$space"
     fi
   done
   printf "\n"
@@ -120,10 +120,10 @@ printf "\n"
 
 # Print legend
 printf "\e[m Less "
-printf "\u001b[38;5;250m%s " "$char_void"
-printf "\x1b[38;2;14;100;41m%s " "$char_full"
-printf "\x1b[38;2;14;150;41m%s " "$char_full"
-printf "\x1b[38;2;14;200;41m%s " "$char_full"
-printf "\x1b[38;2;14;250;41m%s " "$char_full"
+printf "\x1b[38;5;250m%s " "$char_void"
+printf "\x1b[38;5;22m%s " "$char_full"
+printf "\x1b[38;5;28m%s " "$char_full"
+printf "\x1b[38;5;34m%s " "$char_full"
+printf "\x1b[38;5;40m%s " "$char_full"
 printf "\e[mMore"
 printf "\n"
