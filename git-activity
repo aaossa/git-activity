@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 set -o nounset
 
@@ -59,23 +59,33 @@ plus)
   exit 1;;
 esac
 
+# Use GNU date if available
+if date --version >/dev/null 2>&1 ; then
+  function _date { date "$@" ;}
+elif gdate >/dev/null 2>&1 ; then
+  function _date { gdate "$@" ;}
+else
+  echo "You need to install coreutils to run this script (command 'gdate' is not available).";
+  exit 1;
+fi
+
 # Process commits per day
 declare -A commits_per_day
 commits_max=0
-since=$(date -d "$(date -d '1 year ago + 1 day' +"%F -%u day")" +"%s")
+since=$(_date -d "$(_date -d '1 year ago + 1 day' +"%F -%u day")" +"%s")
 while read -r commits_n commits_date; do
   (( commits_n > commits_max )) && commits_max=$commits_n
-  date_diff=$(( ($(date --date="${commits_date} 13:00 UTC" "+%s") - since) / (60*60*24) ))
+  date_diff=$(( ($(_date --date="${commits_date} 13:00 UTC" "+%s") - since) / (60*60*24) ))
   commits_per_day["${date_diff}"]=$commits_n
 done <<< $(git log --since="${since}" --date=short --pretty=format:'%ad'  | uniq -c)
 
 # Print name of months
-current_month=$(date "+%b")
+current_month=$(_date "+%b")
 limit_columns=$(( 2 - ${#space} ))
 weeks_in_month=$(( limit_columns + 1 ))
 printf "\e[m    "
 for week_n in $(seq 0 52); do
-  month_week=$(date -d "1 year ago + ${week_n} weeks" "+%b")
+  month_week=$(_date -d "1 year ago + ${week_n} weeks" "+%b")
   if [[ "${current_month}" != "${month_week}" ]]; then
     current_month=$month_week
     weeks_in_month=0
@@ -88,7 +98,7 @@ done
 printf "\n"
 
 # Print activity
-last_day=$(( ($(date "+%s") - since) / (60*60*24) ))
+last_day=$(( ($(_date "+%s") - since) / (60*60*24) ))
 name_of_days=("" "Mon" "" "Wed" "" "Fri" "" "")
 for day_n in $(seq 0 6); do
   printf '\e[m%-4s' "${name_of_days[day_n]}"
