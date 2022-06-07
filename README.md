@@ -59,7 +59,7 @@ Fri █████████████████████████�
 
 ### Run On Mac
 
-Just need install `coreutils`, execute cammond `brew install coreutils` if you had brew.
+You need to install `coreutils`. If you have brew available, you can execute the command `brew install coreutils`.
 
 ### License
 
