@@ -57,6 +57,9 @@ Fri █████████████████████████�
 
 ![image](https://user-images.githubusercontent.com/10425834/170083883-6145a11f-b6d8-490e-a751-45c2d6552698.png)
 
+### Run On Mac
+
+You need to install `coreutils`. If you have brew available, you can execute the command `brew install coreutils`.
 
 ### License
 
