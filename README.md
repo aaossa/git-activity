@@ -17,6 +17,7 @@ Available options:
 -h, --help      Print this help and exit
 -n, --no-space  Remove spaces between week columns
 -s, --style     Sets style of the graph: square (default), block, or plus
+--monday-first  Set Monday to be the first day of the week
 ```
 
 The output of the command displays a colored graph similar to the one that you can find in any GitHub profile webpage:

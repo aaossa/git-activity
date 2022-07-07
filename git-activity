@@ -18,6 +18,7 @@ EOF
 }
 
 # Parse options
+weekdays="$(seq 0 6)"
 space=" "
 style=square
 while [[ $# -gt 0 ]]; do
@@ -27,6 +28,7 @@ while [[ $# -gt 0 ]]; do
       shift 2
       ;;
     -n|--no-space) space="" ;;
+    --monday-first) weekdays="1 2 3 4 5 6 0" ;;
     -h|--help)
       usage
       exit 0
@@ -100,7 +102,7 @@ printf "\n"
 # Print activity
 last_day=$(( ($(_date "+%s") - since) / (60*60*24) ))
 name_of_days=("" "Mon" "" "Wed" "" "Fri" "" "")
-for day_n in $(seq 0 6); do
+for day_n in $weekdays; do
   printf '\e[m%-4s' "${name_of_days[day_n]}"
   for week_n in $(seq 0 52); do
     key=$(( week_n * 7 + day_n ))
